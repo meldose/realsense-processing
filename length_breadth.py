@@ -61,9 +61,23 @@ try:
                     length = abs(p2[0] - p1[0])
                     width = abs(p2[1] - p1[1])
 
+                    # Calculate the center of the bounding box
+                    cx = x + w // 2
+                    cy = y + h // 2
+                    center_depth = depth_image[cy, cx] * depth_scale
+
+                    # Fallback if center depth is zero (invalid pixel)
+                    if center_depth == 0:
+                        non_zero_depths = depth_crop[depth_crop > 0]
+                        center_depth = np.median(non_zero_depths) * depth_scale
+
+                    # Deproject to 3D space (X, Y, Z in meters)
+                    object_center_3D = rs.rs2_deproject_pixel_to_point(depth_intrin, [cx, cy], center_depth)
+                    X, Y, Z = object_center_3D  # in meters
+
                     # Draw and label
                     cv2.rectangle(color_image, (x, y), (x+w, y+h), (0,255,0), 2)
-                    label = f"L: {length:.2f}m, W: {width:.2f}m, H: {smoothed_height:.2f}m"
+                    label = f"X: {X:.2f}m, Y: {Y:.2f}m, Z: {Z:.2f}m\nL: {length:.2f}m, W: {width:.2f}m, H: {smoothed_height:.2f}m"
                     cv2.putText(color_image, label, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0), 2)
 
         # Display
