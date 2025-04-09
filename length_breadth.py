@@ -1,7 +1,7 @@
-import pyrealsense2 as rs
-import numpy as np
-import cv2
-from collections import deque
+import pyrealsense2 as rs # imorted the module pyrealsense2
+import numpy as np # imported numpy module
+import cv2 # impored cv2 module
+from collections import deque # imported collections module
 
 # Initialize RealSense pipeline
 pipeline = rs.pipeline()
@@ -88,5 +88,5 @@ try:
             break
 
 finally:
-    pipeline.stop()
-    cv2.destroyAllWindows()
+    pipeline.stop() # stopping the pipeline
+    cv2.destroyAllWindows() # closing all the windows
