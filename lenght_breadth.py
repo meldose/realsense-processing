@@ -1,6 +1,6 @@
-import pyrealsense2 as rs
-import numpy as np
-import cv2
+import pyrealsense2 as rs # imported module pyrelease
+import numpy as np # imported numpy module
+import cv2 # imported cv2 module
 
 # Set up the RealSense pipeline
 pipeline = rs.pipeline()
