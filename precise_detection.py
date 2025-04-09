@@ -61,7 +61,7 @@ try:
         contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         for contour in contours:
-            if cv2.contourArea(contour) > 5000:
+            if cv2.contourArea(contour) > 1000:
                 x, y, w, h = cv2.boundingRect(contour)
                 depth_crop = depth_image[y:y+h, x:x+w]
                 valid_depths = depth_crop[depth_crop > 0]
