@@ -3,7 +3,7 @@ import numpy as np # imported numpy module
 import cv2 # impored cv2 module
 from collections import deque # imported collections module
 
-# Initialize RealSense pipeline
+# Initialize RealSense pipelines
 pipeline = rs.pipeline()
 config = rs.config()
 config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
@@ -39,7 +39,7 @@ try:
         contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         for contour in contours:
-            if cv2.contourArea(contour) > 5000:
+            if cv2.contourArea(contour) > 6000:
                 x, y, w, h = cv2.boundingRect(contour)
                 depth_crop = depth_image[y:y+h, x:x+w]
                 valid_depths = depth_crop[depth_crop > 0]
